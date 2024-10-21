@@ -1,53 +1,64 @@
 function populateSearchOptions(stype, resultData) {
-    console.log("Entering populateSearchOptions function");
-    var codriaCode = document.getElementById("codria_code");
+    // IE5 doesn't support console.log, so we'll remove it
+    // console.log("Entering populateSearchOptions function");
+    
+    var codriaCode = document.all["codria_code"];
     if (codriaCode) {
         codriaCode.value = '';
     }
-
-    // Create select dropdowns
-    var selectdropdown = document.createElement("select");
+    
+    // Create select elements
+    var selectdropdown = document.createElement("SELECT");
     selectdropdown.id = "select" + stype + "_code";
-    selectdropdown.setAttribute("onchange", "selectdropdown('" + stype + "', 'code');");
-
-    var selectdropdown2 = document.createElement("select");
+    selectdropdown.onchange = new Function("selectdropdown('" + stype + "', 'code')");
+    
+    var selectdropdown2 = document.createElement("SELECT");
     selectdropdown2.id = "select" + stype + "_name";
-    selectdropdown2.setAttribute("onchange", "selectdropdown('" + stype + "', 'name');");
-
-    // Replace text inputs with dropdowns
-    var txtCode = document.getElementById("txt" + stype + "_code");
-    var txtName = document.getElementById("txt" + stype + "_name");
+    selectdropdown2.onchange = new Function("selectdropdown('" + stype + "', 'name')");
+    
+    // Replace text inputs with select dropdowns
+    var txtCode = document.all["txt" + stype + "_code"];
+    var txtName = document.all["txt" + stype + "_name"];
     if (txtCode && txtName) {
-        txtCode.parentNode.replaceChild(selectdropdown, txtCode);
-        txtName.parentNode.replaceChild(selectdropdown2, txtName);
+        txtCode.parentElement.replaceChild(selectdropdown, txtCode);
+        txtName.parentElement.replaceChild(selectdropdown2, txtName);
     }
-
-    // Append options to select dropdowns
+    
+    // Replace existing select elements if they exist
+    var selectCode = document.all["select" + stype + "_code"];
+    var selectName = document.all["select" + stype + "_name"];
+    if (selectCode && selectName) {
+        selectCode.parentElement.replaceChild(selectdropdown, selectCode);
+        selectName.parentElement.replaceChild(selectdropdown2, selectName);
+    }
+    
+    // Show reset elements
+    var sgrResetElements = document.all.tags("*");
+    for (var i = 0; i < sgrResetElements.length; i++) {
+        if (sgrResetElements[i].className == "sgr_reset") {
+            sgrResetElements[i].style.display = 'block';
+        }
+    }
+    
+    // Populate options
     for (var index = 0; index < resultData.length; index++) {
         var item = resultData[index];
-        var option = document.createElement("option");
-        option.value = item.id; // Ensure 'id' exists in resultData
-        option.text = item.name || item.id; // Use 'name' if available, else fallback to 'id'
-        selectdropdown.appendChild(option);
+        var option = document.createElement("OPTION");
+        option.value = item.id;
+        option.text = item.id;
+        selectdropdown.options.add(option);
     }
-
-    // Determine where to append the dropdowns
+    
+    // Append to parent element
     var appendtotype;
-    if (stype === 'sgr') {
+    if (stype == 'sgr') {
         appendtotype = 'subgroupname_id';
-    } else if (stype === 'le') {
+    } else if (stype == 'le') {
         appendtotype = 'legroupname_id';
     }
-
-    var appendToElement = document.getElementById(appendtotype);
+    var appendToElement = document.all[appendtotype];
     if (appendToElement) {
         appendToElement.appendChild(selectdropdown);
         appendToElement.appendChild(selectdropdown2);
-    }
-
-    // Reset elements visibility
-    var sgrResetElements = document.getElementsByClassName("sgr_reset");
-    for (var i = 0; i < sgrResetElements.length; i++) {
-        sgrResetElements[i].style.display = 'block';
     }
 }
