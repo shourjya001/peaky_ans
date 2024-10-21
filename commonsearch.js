@@ -1,10 +1,10 @@
 function commonsearch(searchType, searchString, searchParam, stype, check) {
-    var xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    var xhr = new XMLHttpRequest();
     xhr.open("POST", "dbe_cfl_user_accessTransferSave.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
+        if (xhr.readyState === 4 && xhr.status === 200) {
             var resultData = JSON.parse(xhr.responseText);
             if (resultData) {
                 if (check == 0) populateSearchOptions(stype, resultData);
@@ -22,7 +22,7 @@ function commonsearch(searchType, searchString, searchParam, stype, check) {
                         populateSearchOptions('le', ledata);
                         checkForCreditFiles(document.getElementById("selectsgr_code").value, document.getElementById("selectle_code").value);
                     } else {
-                        if (check == 0) {
+                        if (check === 0) {
                             populateSearchOptions('sgr', resultData);
                             commonsearch('fetchLegalEntityBasedonID', resultData[0]['id'], searchParam, 'le', 1);
                         }
