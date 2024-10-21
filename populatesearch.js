@@ -1,4 +1,5 @@
 function populateSearchOptions(stype, resultData) {
+    console.log("Entering populateSearchOptions function");
     var codriaCode = document.getElementById("codria_code");
     if (codriaCode) {
         codriaCode.value = '';
