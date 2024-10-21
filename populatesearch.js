@@ -1,5 +1,8 @@
 function populateSearchOptions(stype, resultData) {
-    document.getElementById("codria_code").value = '';
+    var codriaCode = document.getElementById("codria_code");
+    if (codriaCode) {
+        codriaCode.value = '';
+    }
 
     var selectdropdown = document.createElement("select");
     selectdropdown.id = "select" + stype + "_code";
@@ -9,14 +12,18 @@ function populateSearchOptions(stype, resultData) {
     selectdropdown2.id = "select" + stype + "_name";
     selectdropdown2.setAttribute("onchange", "selectdropdown('" + stype + "', 'name');");
 
-    if (document.getElementById("txt" + stype + "_code")) {
-        document.getElementById("txt" + stype + "_code").parentNode.replaceChild(selectdropdown, document.getElementById("txt" + stype + "_code"));
-        document.getElementById("txt" + stype + "_name").parentNode.replaceChild(selectdropdown2, document.getElementById("txt" + stype + "_name"));
+    var txtCode = document.getElementById("txt" + stype + "_code");
+    var txtName = document.getElementById("txt" + stype + "_name");
+    if (txtCode && txtName) {
+        txtCode.parentNode.replaceChild(selectdropdown, txtCode);
+        txtName.parentNode.replaceChild(selectdropdown2, txtName);
     }
 
-    if (document.getElementById("select" + stype + "_code")) {
-        document.getElementById("select" + stype + "_code").parentNode.replaceChild(selectdropdown, document.getElementById("select" + stype + "_code"));
-        document.getElementById("select" + stype + "_name").parentNode.replaceChild(selectdropdown2, document.getElementById("select" + stype + "_name"));
+    var selectCode = document.getElementById("select" + stype + "_code");
+    var selectName = document.getElementById("select" + stype + "_name");
+    if (selectCode && selectName) {
+        selectCode.parentNode.replaceChild(selectdropdown, selectCode);
+        selectName.parentNode.replaceChild(selectdropdown2, selectName);
     }
 
     var sgrResetElements = document.getElementsByClassName("sgr_reset");
@@ -39,6 +46,9 @@ function populateSearchOptions(stype, resultData) {
         appendtotype = 'legroupname_id';
     }
 
-    document.getElementById(appendtotype).appendChild(selectdropdown);
-    document.getElementById(appendtotype).appendChild(selectdropdown2);
+    var appendToElement = document.getElementById(appendtotype);
+    if (appendToElement) {
+        appendToElement.appendChild(selectdropdown);
+        appendToElement.appendChild(selectdropdown2);
+    }
 }
