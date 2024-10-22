@@ -50,7 +50,13 @@ function checkForCreditFiles(codspm, codle) {
     };
 
     var url = "dbe_cf1_user_accessTransferSave.php?searchType=fetchCFdetails&codspm=" + encodeURIComponent(codspm) + "&codle=" + encodeURIComponent(codle) + "&nocache=" + new Date().getTime();
+    alert("Requesting URL: " + url); // Debugging alert to display the URL
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
+}
+
+function goToHomePage() {
+    alert("te");
+    location.reload(true);
 }
