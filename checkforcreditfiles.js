@@ -49,11 +49,11 @@ function checkForCreditFiles(codspm, codle) {
         }
     };
 
-    var url = "dbe_cf1_user_accessTransferSave.php?searchType=fetchCFdetails&codspm=" + encodeURIComponent(codspm) + "&codle=" + encodeURIComponent(codle) + "&nocache=" + new Date().getTime();
-    alert("Requesting URL: " + url); // Debugging alert to display the URL
+var url = "dbe_cf1_user_accessTransferSave.php";
+    console.log("Requesting URL: " + url); // Debugging log to display the URL
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
+    xhr.send("codspm=" + encodeURIComponent(codspm) + "&codle=" + encodeURIComponent(codle) + "&nocache=" + new Date().getTime());
 }
 
 function goToHomePage() {
