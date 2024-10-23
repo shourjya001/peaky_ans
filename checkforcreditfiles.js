@@ -9,9 +9,14 @@ function checkForCreditFiles(codspm, codle) {
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
 
+    xhr.open("POST", "dbe_cf1_user_accessTransferSave.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
+            console.log("XHR Status: " + xhr.status); // Debugging log to display the status
             if (xhr.status === 200) {
+                alert("AJAX request successful");
                 var response = JSON.parse(xhr.responseText);
                 if (response.id === 'None') {
                     var elements = document.getElementsByClassName("codria_class");
@@ -44,15 +49,12 @@ function checkForCreditFiles(codspm, codle) {
                     }
                 }
             } else {
+                console.error("AJAX request failed with status: " + xhr.status);
                 alert("AJAX request failed with status: " + xhr.status);
             }
         }
     };
 
-var url = "dbe_cf1_user_accessTransferSave.php";
-    console.log("Requesting URL: " + url); // Debugging log to display the URL
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("codspm=" + encodeURIComponent(codspm) + "&codle=" + encodeURIComponent(codle) + "&nocache=" + new Date().getTime());
 }
 
