@@ -1,9 +1,16 @@
+if (!window.JSON) {
+    window.JSON = {
+        parse: function (sJSON) {
+            return eval('(' + sJSON + ')');
+        }
+    };
+}
+
 function checkForCreditFiles(codspm, codle) {
     if (codspm === undefined) codspm = '';
     if (codle === undefined) codle = '';
 
-    var xhr = new XMLHttpRequest();
-
+    var xhr = new ActiveXObject("Microsoft.XMLHTTP");
     xhr.open("POST", "dbe_cfl_user_accessTransferSave.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
