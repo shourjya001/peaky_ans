@@ -21,27 +21,33 @@ function checkForCreditFiles(codspm, codle) {
                         }
                         alert("No credit files available..!");
                     } else {
-                        for (var i = 0; i < response.length; i++) {
-                            var item = response[i];
-                            var input = document.createElement('input');
-                            input.type = 'radio';
-                            input.name = 'codria';
-                            input.style.display = 'inline';
-                            input.style.paddingRight = '5px';
-                            input.style.width = '20%';
-                            input.id = 'codria' + item.codri;
-                            input.value = item.codria;
+                        var codriaSpan = document.getElementById('codria_span');
+                        if (codriaSpan) {
+                            for (var i = 0; i < response.length; i++) {
+                                var item = response[i];
+                                var input = document.createElement('input');
+                                input.type = 'radio';
+                                input.name = 'codria';
+                                input.style.display = 'inline';
+                                input.style.paddingRight = '5px';
+                                input.style.width = '20%';
+                                input.id = 'codria' + item.codri;
+                                input.value = item.codria;
 
-                            var label = document.createElement('label');
-                            label.htmlFor = input.id;
-                            label.innerText = item.codria;
+                                var label = document.createElement('label');
+                                label.htmlFor = input.id;
+                                label.innerText = item.codria;
 
-                            document.getElementById('codria_span').appendChild(input);
-                            document.getElementById('codria_span').appendChild(label);
-                        }
-                        var elements = document.getElementsByClassName("codria_class");
-                        for (var i = 0; i < elements.length; i++) {
-                            elements[i].style.display = 'block';
+                                codriaSpan.appendChild(input);
+                                codriaSpan.appendChild(label);
+                            }
+                            var elements = document.getElementsByClassName("codria_class");
+                            for (var i = 0; i < elements.length; i++) {
+                                elements[i].style.display = 'block';
+                            }
+                        } else {
+                            console.error("Element with id 'codria_span' not found.");
+                            alert("Element with id 'codria_span' not found.");
                         }
                     }
                 } catch (e) {
