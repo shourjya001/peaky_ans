@@ -4,7 +4,7 @@ function checkForCreditFiles(codspm, codle) {
 
     var xhr = new XMLHttpRequest();
 
-    xhr.open("POST", "dbe_cf1_user_accessTransferSave.php", true);
+    xhr.open("POST", "dbe_cfl_user_accessTransferSave.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function() {
